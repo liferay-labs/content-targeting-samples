@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="com.liferay.content.targeting.rule.mail.keywords.service.impl.KeywordMatchLocalServiceImpl" id="com.liferay.content.targeting.rule.mail.keywords.service.KeywordMatchLocalService" />
+	<bean class="com.liferay.content.targeting.rule.mail.keywords.service.impl.KeywordMatchServiceImpl" id="com.liferay.content.targeting.rule.mail.keywords.service.KeywordMatchService" />
+	<bean class="com.liferay.content.targeting.rule.mail.keywords.service.persistence.impl.KeywordMatchPersistenceImpl" id="com.liferay.content.targeting.rule.mail.keywords.service.persistence.KeywordMatchPersistence" parent="basePersistence" />
+</beans>

@@ -1,0 +1,14 @@
+Bundle-Name: Liferay Content Targeting Mail Keywords Rule Service
+Bundle-SymbolicName: com.liferay.content.targeting.rule.mail.keywords.service
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.content.targeting.rule.mail.keywords.model.impl,\
+	com.liferay.content.targeting.rule.mail.keywords.service.impl
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title: Mail Keywords Rule
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+Require-Capability:\
+	liferay.extender;\
+	filter:="(&(liferay.extender=spring.extender)(version>=1.0)(!(version>=3.0)))"
+-baseline: *;version="2.0.0"

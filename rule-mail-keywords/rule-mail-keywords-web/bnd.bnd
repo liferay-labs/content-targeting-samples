@@ -1,0 +1,7 @@
+Bundle-Name: Liferay Content Targeting Mail Keywords Rule Web
+Bundle-SymbolicName: com.liferay.content.targeting.rule.mail.keywords.web
+Bundle-Version: 1.0.0
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title: Mail Keywords Rule Web
+Web-ContextPath: /rule-mail-keywords
+-baseline: *;version="1.0.0"

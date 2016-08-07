@@ -1,0 +1,1 @@
+create unique index IX_1766D68E on CT_MK_KeywordMatch (anonymousUserId, ruleInstanceId);

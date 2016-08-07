@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.content.targeting.rule.mail.keywords.model.KeywordMatch">
+		<field name="keywordMatchId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="modifiedDate" type="Date" />
+		<field name="anonymousUserId" type="long" />
+		<field name="ruleInstanceId" type="long" />
+	</model>
+</model-hints>
