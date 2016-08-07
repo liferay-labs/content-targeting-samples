@@ -1,0 +1,7 @@
+Bundle-Name: Liferay Content Targeting Mood Rule Web
+Bundle-SymbolicName: com.liferay.content.targeting.rule.mood.web
+Bundle-Version: 1.0.0
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title: Mood Rule
+Web-ContextPath: /rule-mood
+-baseline: *;version="1.0.0"

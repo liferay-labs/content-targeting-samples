@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.liferay.content.targeting.rule.mood">
+	<namespace>CT_Mood</namespace>
+	<entity local-service="true" name="Mood" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="moodId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="anonymousUserId" type="long" />
+		<column name="ruleInstanceId" type="long" />
+		<column name="timeToLive" type="long" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="anonymousUserId" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="AnonymousUserId" return-type="Collection">
+			<finder-column name="anonymousUserId" />
+		</finder>
+		<finder name="RuleInstanceId" return-type="Collection">
+			<finder-column name="ruleInstanceId" />
+		</finder>
+		<finder name="A_R" return-type="Mood" unique="true">
+			<finder-column name="anonymousUserId" />
+			<finder-column name="ruleInstanceId" />
+		</finder>
+	</entity>
+</service-builder>

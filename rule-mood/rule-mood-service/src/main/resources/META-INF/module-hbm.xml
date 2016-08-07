@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.liferay.content.targeting.rule.mood.model.Mood" />
+	<class name="com.liferay.content.targeting.rule.mood.model.impl.MoodImpl" table="CT_Mood_Mood">
+		<id name="moodId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="anonymousUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ruleInstanceId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="timeToLive" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+	</class>
+</hibernate-mapping>

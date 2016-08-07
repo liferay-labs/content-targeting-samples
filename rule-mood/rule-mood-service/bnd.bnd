@@ -1,0 +1,18 @@
+Bundle-Name: Liferay Content Targeting Mood Rule Service
+Bundle-SymbolicName: com.liferay.content.targeting.rule.mood.service
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.content.targeting.rule.mood.model.impl,\
+	com.liferay.content.targeting.rule.mood.service.impl
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title: Mood Rule
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+Liferay-Spring-Context: META-INF/spring
+Require-Capability:\
+	liferay.extender;\
+	filter:="(&(liferay.extender=spring.extender)(version>=1.0)(!(version>=3.0)))"
+-baseline: *;version="2.0.0"
+
+-liferay-includeresource: @com.liferay.util.java-*.jar!/com/liferay/util/portlet/PortletProps.class
+-liferay-spring-dependency: com.liferay.portal.spring.extender.service.ServiceReference

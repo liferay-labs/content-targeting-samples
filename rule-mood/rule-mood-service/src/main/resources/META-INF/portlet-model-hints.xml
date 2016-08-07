@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.content.targeting.rule.mood.model.Mood">
+		<field name="moodId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="modifiedDate" type="Date" />
+		<field name="anonymousUserId" type="long" />
+		<field name="ruleInstanceId" type="long" />
+		<field name="timeToLive" type="long" />
+	</model>
+</model-hints>
