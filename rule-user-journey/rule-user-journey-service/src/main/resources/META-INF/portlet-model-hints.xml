@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.content.targeting.rule.user.journey.model.UserJourney">
+		<field name="userJourneyId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="modifiedDate" type="Date" />
+		<field name="anonymousUserId" type="long" />
+		<field name="ruleInstanceId" type="long" />
+		<field name="currentPlid" type="long" />
+		<field name="finished" type="boolean" />
+	</model>
+</model-hints>

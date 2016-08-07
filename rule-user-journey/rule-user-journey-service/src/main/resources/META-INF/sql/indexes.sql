@@ -1,0 +1,1 @@
+create unique index IX_CC3110C4 on CT_UJ_UserJourney (anonymousUserId, ruleInstanceId);

@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 7.0.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_7_0_0.dtd">
+
+<service-builder package-path="com.liferay.content.targeting.rule.user.journey">
+	<namespace>CT_UJ</namespace>
+	<entity local-service="true" name="UserJourney" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="userJourneyId" primary="true" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="anonymousUserId" type="long" />
+		<column name="ruleInstanceId" type="long" />
+
+		<column name="currentPlid" type="long" />
+		<column name="finished" type="boolean" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="anonymousUserId" />
+		</order>
+
+		<!-- Finder methods -->
+
+
+		<finder name="A_R" return-type="KeywordMatch" unique="true">
+			<finder-column name="anonymousUserId" />
+			<finder-column name="ruleInstanceId" />
+		</finder>
+	</entity>
+</service-builder>

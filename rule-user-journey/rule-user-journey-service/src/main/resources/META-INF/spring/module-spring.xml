@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation=" http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<bean class="com.liferay.content.targeting.rule.user.journey.service.impl.UserJourneyLocalServiceImpl" id="com.liferay.content.targeting.rule.user.journey.service.UserJourneyLocalService" />
+	<bean class="com.liferay.content.targeting.rule.user.journey.service.impl.UserJourneyServiceImpl" id="com.liferay.content.targeting.rule.user.journey.service.UserJourneyService" />
+	<bean class="com.liferay.content.targeting.rule.user.journey.service.persistence.impl.UserJourneyPersistenceImpl" id="com.liferay.content.targeting.rule.user.journey.service.persistence.UserJourneyPersistence" parent="basePersistence" />
+</beans>

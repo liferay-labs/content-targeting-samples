@@ -1,0 +1,8 @@
+Bundle-Name: Liferay Content Targeting User Journey Rule Web
+Bundle-SymbolicName: com.liferay.content.targeting.rule.user.journey.web
+Bundle-Version: 1.0.0
+Liferay-JS-Config: /META-INF/resources/js/config.js
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title: User Journey Rule Web
+Web-ContextPath: /rule-user-journey
+-baseline: *;version="1.0.0"

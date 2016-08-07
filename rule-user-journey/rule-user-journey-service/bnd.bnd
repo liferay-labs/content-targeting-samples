@@ -1,0 +1,14 @@
+Bundle-Name: Liferay Content Targeting User Journey Rule Service
+Bundle-SymbolicName: com.liferay.content.targeting.rule.user.journey.service
+Bundle-Version: 1.0.0
+Export-Package:\
+	com.liferay.content.targeting.rule.user.journey.model.impl,\
+	com.liferay.content.targeting.rule.user.journey.service.impl
+Liferay-Releng-Module-Group-Description:
+Liferay-Releng-Module-Group-Title: User Journey Rule
+Liferay-Require-SchemaVersion: 1.0.0
+Liferay-Service: true
+Require-Capability:\
+	liferay.extender;\
+	filter:="(&(liferay.extender=spring.extender)(version>=1.0)(!(version>=3.0)))"
+-baseline: *;version="2.0.0"

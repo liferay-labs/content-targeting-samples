@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping auto-import="false" default-lazy="false">
+	<import class="com.liferay.content.targeting.rule.user.journey.model.UserJourney" />
+	<class name="com.liferay.content.targeting.rule.user.journey.model.impl.UserJourneyImpl" table="CT_UJ_UserJourney">
+		<id name="userJourneyId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="anonymousUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="ruleInstanceId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="currentPlid" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="finished" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+	</class>
+</hibernate-mapping>
