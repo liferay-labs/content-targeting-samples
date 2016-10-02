@@ -41,22 +41,27 @@ layoutItemSelectorCriterion.setDesiredItemSelectorReturnTypes(desiredItemSelecto
 PortletURL itemSelectorURL = itemSelector.getItemSelectorURL(RequestBackedPortletURLFactoryUtil.create(liferayPortletRequest), eventName, layoutItemSelectorCriterion);
 %>
 
-<aui:script use="aui-base,user-journey-selector">
-	var userJourneySelector = new UserJourneySelector(
-		{
-			buttonNode: '#<portlet:namespace/>addNodePage',
-			eventName: '<%= eventName %>',
-			itemSelectorURL: '<%= itemSelectorURL %>',
-			journeyArray: <%= userJourneyRuleDisplayContext.getJourneyArray().toString() %>,
-			outputNode: '#<portlet:namespace/>journeyArray',
-			selectorNode: '.user-journey-builder',
-			strings: {
-				add: '<liferay-ui:message key="done" />',
-				title: '<liferay-ui:message key="select-page" />'
-			}
+<script use="aui-base,user-journey-selector">
+	AUI().use(
+		'user-journey-selector', 'aui-base',
+		function(A) {
+			var userJourneySelector = new UserJourneySelector(
+				{
+					buttonNode: '#<portlet:namespace/>addNodePage',
+					eventName: '<%= eventName %>',
+					itemSelectorURL: '<%= itemSelectorURL %>',
+					journeyArray: <%= userJourneyRuleDisplayContext.getJourneyArray().toString() %>,
+					outputNode: '#<portlet:namespace/>journeyArray',
+					selectorNode: '.user-journey-builder',
+					strings: {
+						add: '<liferay-ui:message key="done" />',
+						title: '<liferay-ui:message key="select-page" />'
+					}
+				}
+			);
 		}
 	);
-</aui:script>
+</script>
 
 <style>
 	.user-journey-arrow {
