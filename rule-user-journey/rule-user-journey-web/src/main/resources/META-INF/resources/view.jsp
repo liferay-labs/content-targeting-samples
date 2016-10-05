@@ -16,9 +16,9 @@
 
 <%@ include file="/init.jsp" %>
 
-<aui:input helpMessage="interrumpible-help" label="interrumpible" name="interrumpible" type="toggle-switch" value="<%= userJourneyRuleDisplayContext.isInterrumpible() %>" />
+<aui:input label="interruptible" name="interruptible" type="toggle-switch" value="<%= userJourneyRuleDisplayContext.isInterruptible() %>" />
 
-<aui:input name="journeyArray" type="hidden" value="[]" />
+<aui:input name="journeyArray" type="hidden" value="<%= userJourneyRuleDisplayContext.getJourneyArray().toString() %>" />
 
 <div class="user-journey-builder">
 </div>
@@ -27,21 +27,9 @@
 
 <%
 String eventName = liferayPortletResponse.getNamespace() + "selectPageNode";
-
-ItemSelector itemSelector = userJourneyRuleDisplayContext.getItemSelector();
-
-LayoutItemSelectorCriterion layoutItemSelectorCriterion = new LayoutItemSelectorCriterion();
-
-List<ItemSelectorReturnType> desiredItemSelectorReturnTypes = new ArrayList<ItemSelectorReturnType>();
-
-desiredItemSelectorReturnTypes.add(new UUIDItemSelectorReturnType());
-
-layoutItemSelectorCriterion.setDesiredItemSelectorReturnTypes(desiredItemSelectorReturnTypes);
-
-PortletURL itemSelectorURL = itemSelector.getItemSelectorURL(RequestBackedPortletURLFactoryUtil.create(liferayPortletRequest), eventName, layoutItemSelectorCriterion);
 %>
 
-<script use="aui-base,user-journey-selector">
+<script type="text/javascript">
 	AUI().use(
 		'user-journey-selector', 'aui-base',
 		function(A) {
@@ -49,7 +37,7 @@ PortletURL itemSelectorURL = itemSelector.getItemSelectorURL(RequestBackedPortle
 				{
 					buttonNode: '#<portlet:namespace/>addNodePage',
 					eventName: '<%= eventName %>',
-					itemSelectorURL: '<%= itemSelectorURL %>',
+					itemSelectorURL: '<%= userJourneyRuleDisplayContext.getItemSelectorURL() %>',
 					journeyArray: <%= userJourneyRuleDisplayContext.getJourneyArray().toString() %>,
 					outputNode: '#<portlet:namespace/>journeyArray',
 					selectorNode: '.user-journey-builder',
