@@ -23,19 +23,15 @@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page
 		import="com.liferay.portal.kernel.portlet.RequestBackedPortletURLFactoryUtil" %>
-<%@ page import="com.liferay.item.selector.ItemSelector" %>
-
-<%@ page import="javax.portlet.PortletURL" %>
 
 <%@ page
-		import="com.liferay.layout.item.selector.criterion.LayoutItemSelectorCriterion" %><%@
-page import="com.liferay.item.selector.ItemSelectorReturnType" %><%@
-page import="java.util.List" %><%@
-page import="java.util.ArrayList" %><%@
+		import="com.liferay.layout.item.selector.criterion.LayoutItemSelectorCriterion" %>
+
+<%@
 page
-		import="com.liferay.item.selector.criteria.UUIDItemSelectorReturnType" %><%@
-page import="com.liferay.content.targeting.util.WebKeys" %><%@
-page import="com.liferay.content.targeting.rule.user.journey.display.context.UserJourneyRuleDisplayContext" %>
+		import="com.liferay.item.selector.criteria.UUIDItemSelectorReturnType" %>
+
+<%@ page import="com.liferay.content.targeting.rule.user.journey.display.context.UserJourneyRuleDisplayContext" %>
 
 <liferay-frontend:defineObjects />
 
