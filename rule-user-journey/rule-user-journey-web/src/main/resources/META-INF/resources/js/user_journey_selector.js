@@ -50,6 +50,8 @@ AUI.add(
 						var instance = this;
 
 						instance._bindUI();
+
+						instance._render();
 					},
 
 					destructor: function() {
