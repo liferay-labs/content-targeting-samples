@@ -29,9 +29,8 @@
 		</order>
 
 		<!-- Finder methods -->
-
-
-		<finder name="A_R" return-type="KeywordMatch" unique="true">
+		
+		<finder name="A_R" return-type="UserJourney" unique="true">
 			<finder-column name="anonymousUserId" />
 			<finder-column name="ruleInstanceId" />
 		</finder>
