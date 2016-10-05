@@ -28,12 +28,14 @@ import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONException;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.model.Layout;
 import com.liferay.portal.kernel.service.LayoutLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.theme.ThemeDisplay;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ResourceBundleUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -94,7 +96,7 @@ public class UserJourneyRule extends BaseJSPRule {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
 			ruleInstance.getTypeSettings());
 
-		boolean interrumpible = jsonObject.getBoolean("interrumpible");
+		boolean interruptible = jsonObject.getBoolean("interruptible");
 
 		JSONArray jsonArray = jsonObject.getJSONArray("journeyArray");
 
@@ -108,7 +110,7 @@ public class UserJourneyRule extends BaseJSPRule {
 
 		int userStep = getStep(jsonArray, userPlid);
 
-		if ((userStep == -1) && !interrumpible) {
+		if ((userStep == -1) && !interruptible) {
 			if (userJourney != null) {
 				_userJourneyLocalService.deleteUserJourney(userJourney);
 			}
@@ -118,12 +120,13 @@ public class UserJourneyRule extends BaseJSPRule {
 
 		if (userJourney != null) {
 			long currentPlid = userJourney.getCurrentPlid();
+
 			int currentStep = getStep(jsonArray, currentPlid);
 
 			int stepsDiff = userStep - currentStep;
 
 			if (stepsDiff != 1) {
-				if (!interrumpible) {
+				if (!interruptible) {
 					_userJourneyLocalService.deleteUserJourney(userJourney);
 				}
 
@@ -235,8 +238,8 @@ public class UserJourneyRule extends BaseJSPRule {
 
 		try {
 			jsonObject.put(
-				"interrumpible",
-				GetterUtil.getBoolean(values.get("interrumpible")));
+				"interruptible",
+				GetterUtil.getBoolean(values.get("interruptible")));
 
 			JSONArray objArray = JSONFactoryUtil.createJSONArray(
 				values.get("journeyArray"));
@@ -297,36 +300,67 @@ public class UserJourneyRule extends BaseJSPRule {
 		RuleInstance ruleInstance, Map<String, Object> context,
 		Map<String, String> values) {
 
-		boolean interrumpible = false;
+		boolean interruptible = false;
+
 		JSONArray journeyArray = JSONFactoryUtil.createJSONArray();
+		JSONArray outputArray = JSONFactoryUtil.createJSONArray();
 
-		if (!values.isEmpty()) {
-			interrumpible = GetterUtil.getBoolean(values.get("interrumpible"));
+		try {
+			if (!values.isEmpty()) {
+				interruptible = GetterUtil.getBoolean(
+					values.get("interruptible"));
 
-			try {
 				journeyArray = JSONFactoryUtil.createJSONArray(
 					values.get("journeyArray"));
 			}
-			catch (JSONException jsone) {
-			}
-		}
-		else if (ruleInstance != null) {
-			String typeSettings = ruleInstance.getTypeSettings();
+			else if (ruleInstance != null) {
+				String typeSettings = ruleInstance.getTypeSettings();
 
-			try {
 				JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
 					typeSettings);
 
-				interrumpible = jsonObject.getBoolean("interrumpible");
+				interruptible = jsonObject.getBoolean("interruptible");
 
 				journeyArray = jsonObject.getJSONArray("journeyArray");
 			}
-			catch (JSONException jsone) {
+
+			for (Object arrayObject : journeyArray) {
+				JSONObject jsonObject = JSONFactoryUtil.createJSONObject(
+					arrayObject.toString());
+
+				long plid = jsonObject.getLong("plid");
+
+				Layout layout = _layoutLocalService.getLayout(plid);
+
+				StringBundler sb = new StringBundler(3);
+
+				if (layout.isPrivateLayout()) {
+					sb.append(
+						LanguageUtil.get(
+							LocaleUtil.getMostRelevantLocale(),
+							"private-pages"));
+				}
+				else {
+					sb.append(
+						LanguageUtil.get(
+							LocaleUtil.getMostRelevantLocale(),
+							"public-pages"));
+				}
+
+				sb.append(" &gt; ");
+				sb.append(layout.getName());
+
+				jsonObject.put("name", sb.toString());
+				jsonObject.put("uuid", layout.getUuid());
+
+				outputArray.put(jsonObject);
 			}
 		}
+		catch (Exception e) {
+		}
 
-		context.put("interrumpible", interrumpible);
-		context.put("journeyArray", journeyArray);
+		context.put("interruptible", interruptible);
+		context.put("journeyArray", outputArray);
 		context.put("itemSelector", _itemSelector);
 	}
 
