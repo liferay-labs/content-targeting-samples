@@ -39,19 +39,32 @@ String ruleNamespace = "CT_MoodRule_";
 Portlet portlet = PortletLocalServiceUtil.getPortletById(company.getCompanyId(), portletDisplay.getId());
 
 List<RuleInstance> ruleInstances = (List<RuleInstance>)request.getAttribute("ruleInstances");
+
+String clmtrackrSrc = HtmlUtil.escape(
+	PortalUtil.getStaticResourceURL(
+		request, PortalUtil.getPathContext(request) + "/js/clmtrackr.js",
+		"minifierBundleId=content.targeting.files",
+		portlet.getTimestamp()));
 %>
 
-<script data-senna-track="temporary" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/clmtrackr.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
-<script data-senna-track="temporary" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/emotion_classifier.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
-<script data-senna-track="temporary" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/emotionmodel.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
-<script data-senna-track="temporary" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/model_pca_20_svm_emotionDetection.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
-<script data-senna-track="temporary" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/Stats.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
-<script data-senna-track="temporary" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/utils.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
+<script data-senna-track="permanent" src="<%= clmtrackrSrc %>" type="text/javascript"></script>
+<script data-senna-track="permanent" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/emotion_classifier.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
+<script data-senna-track="permanent" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/emotionmodel.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
+<script data-senna-track="permanent" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/model_pca_20_svm_emotionDetection.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
+<script data-senna-track="permanent" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/Stats.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
+<script data-senna-track="permanent" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/utils.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
 
-<div class="hidden" id="<%= ruleNamespace %>videoContainer">
+<div class="hidden" id="<%= ruleNamespace %>videoContainer" style="position:absolute; left:0; top:0; z-index:65534;">
 	<video height="300" id="<%= ruleNamespace %>videoel" preload="auto" style="-o-transform : scaleX(-1);-webkit-transform : scaleX(-1);transform : scaleX(-1);-ms-filter : fliph; /*IE*/filter : fliph; /*IE*/width : 600px;height : 450px;" width="400" loop></video>
 	<canvas height="300" id="<%= ruleNamespace %>overlay" style="position: absolute;top: 0px;left: 0px;-o-transform : scaleX(-1);-webkit-transform : scaleX(-1);transform : scaleX(-1);-ms-filter : fliph; /*IE*/filter : fliph; /*IE*/width : 600px;height : 450px;" width="400"></canvas>
 </div>
+
+<script>
+	$(document).keypress("k",function(e) {
+		if(e.ctrlKey && e.shiftKey)
+			$('#<%= ruleNamespace %>videoContainer').toggleClass('hidden');
+	});
+</script>
 
 <aui:script>
 	<%= ruleNamespace %>saveMoodChange = function(moodThreshold) {

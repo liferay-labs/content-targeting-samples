@@ -38,6 +38,6 @@
 
 <aui:input helpMessage="mood-ttl-help" label="mood-ttl" name="moodTtl" value="<%= moodRuleDisplayContext.getMoodTtl() %>">
 	<aui:validator name="number" />
-	<aui:validator name="min">[1]</aui:validator>
-	<aui:validator name="max">[1440]</aui:validator>
+	<aui:validator name="digits" />
+	<aui:validator name="range">[1,1440]</aui:validator>
 </aui:input>
