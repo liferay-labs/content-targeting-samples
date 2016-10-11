@@ -132,7 +132,7 @@ public class MailKeywordsRule extends BaseJSPRule {
 		try {
 			JSONArray jsonArray = JSONFactoryUtil.createJSONArray(typeSettings);
 
-			StringBundler sb = new StringBundler(jsonArray.length()*2 - 1);
+			StringBundler sb = new StringBundler(jsonArray.length() * 2 - 1);
 
 			for (Object object : jsonArray) {
 				if (sb.length() > 0) {
@@ -202,7 +202,8 @@ public class MailKeywordsRule extends BaseJSPRule {
 				JSONArray jsonArray = JSONFactoryUtil.createJSONArray(
 					typeSettings);
 
-				StringBundler sb = new StringBundler(jsonArray.length()*2 - 1);
+				StringBundler sb = new StringBundler(
+					jsonArray.length() * 2 - 1);
 
 				for (Object object : jsonArray) {
 					if (sb.length() > 0) {

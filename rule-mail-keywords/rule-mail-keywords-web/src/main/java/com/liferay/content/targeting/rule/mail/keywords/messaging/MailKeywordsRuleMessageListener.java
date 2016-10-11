@@ -27,14 +27,16 @@ import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageListener;
+import com.liferay.portal.kernel.model.Company;
 import com.liferay.portal.kernel.model.Group;
 import com.liferay.portal.kernel.model.User;
-import com.liferay.portal.kernel.security.auth.CompanyThreadLocal;
+import com.liferay.portal.kernel.service.CompanyLocalService;
 import com.liferay.portal.kernel.service.GroupLocalService;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextThreadLocal;
 import com.liferay.portal.kernel.service.UserLocalService;
 import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -56,21 +58,18 @@ import org.osgi.service.component.annotations.Reference;
 )
 public class MailKeywordsRuleMessageListener extends BaseMessageListener {
 
-	@Override
-	protected void doReceive(Message message) throws Exception {
-		Object payload = message.getPayload();
-
-		if (!(payload instanceof MailMessage)) {
-			return;
-		}
-
-		MailMessage mailMessage = (MailMessage)payload;
+	protected void checkCompany(long companyId, MailMessage mailMessage)
+		throws Exception {
 
 		InternetAddress[] toAddresses = mailMessage.getTo();
+		InternetAddress[] bulkAddresses = mailMessage.getBulkAddresses();
+
+		List<InternetAddress> addressList = new ArrayList<>();
+
+		addressList.addAll(ListUtil.fromArray(toAddresses));
+		addressList.addAll(ListUtil.fromArray(bulkAddresses));
 
 		User user = null;
-
-		long companyId = CompanyThreadLocal.getCompanyId();
 
 		List<Group> activeGroups = _groupLocalService.getActiveGroups(
 			companyId, true);
@@ -100,7 +99,7 @@ public class MailKeywordsRuleMessageListener extends BaseMessageListener {
 
 		serviceContext.setCompanyId(companyId);
 
-		for (InternetAddress internetAddress : toAddresses) {
+		for (InternetAddress internetAddress : addressList) {
 			String email = internetAddress.getAddress();
 
 			user = _userLocalService.fetchUserByEmailAddress(companyId, email);
@@ -123,6 +122,23 @@ public class MailKeywordsRuleMessageListener extends BaseMessageListener {
 
 		for (AnonymousUser anonymousUser : anonymousUsers) {
 			saveMatches(anonymousUser, context, userSegments, serviceContext);
+		}
+	}
+
+	@Override
+	protected void doReceive(Message message) throws Exception {
+		Object payload = message.getPayload();
+
+		if (!(payload instanceof MailMessage)) {
+			return;
+		}
+
+		MailMessage mailMessage = (MailMessage)payload;
+
+		List<Company> companies = _companyLocalService.getCompanies();
+
+		for (Company company : companies) {
+			checkCompany(company.getCompanyId(), mailMessage);
 		}
 	}
 
@@ -158,6 +174,13 @@ public class MailKeywordsRuleMessageListener extends BaseMessageListener {
 		AnonymousUserLocalService anonymousUserLocalService) {
 
 		_anonymousUserLocalService = anonymousUserLocalService;
+	}
+
+	@Reference(unbind = "-")
+	protected void setCompanyLocalService(
+		CompanyLocalService companyLocalService) {
+
+		_companyLocalService = companyLocalService;
 	}
 
 	@Reference(unbind = "-")
@@ -215,6 +238,7 @@ public class MailKeywordsRuleMessageListener extends BaseMessageListener {
 	}
 
 	private AnonymousUserLocalService _anonymousUserLocalService;
+	private CompanyLocalService _companyLocalService;
 	private GroupLocalService _groupLocalService;
 	private KeywordMatchLocalService _keywordMatchLocalService;
 	private Rule _rule;
