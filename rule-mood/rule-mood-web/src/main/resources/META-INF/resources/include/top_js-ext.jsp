@@ -54,15 +54,19 @@ String clmtrackrSrc = HtmlUtil.escape(
 <script data-senna-track="permanent" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/Stats.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
 <script data-senna-track="permanent" src="<%= HtmlUtil.escape(PortalUtil.getStaticResourceURL(request, PortalUtil.getPathContext(request) + "/js/utils.js", "minifierBundleId=content.targeting.files", portlet.getTimestamp())) %>" type="text/javascript"></script>
 
-<div class="hidden" id="<%= ruleNamespace %>videoContainer" style="position:absolute; left:0; top:0; z-index:65534;">
+<div class="hidden" id="<%= ruleNamespace %>videoContainer" style="position:absolute; left:0; top:0; z-index:65533;">
 	<video height="300" id="<%= ruleNamespace %>videoel" preload="auto" style="-o-transform : scaleX(-1);-webkit-transform : scaleX(-1);transform : scaleX(-1);-ms-filter : fliph; /*IE*/filter : fliph; /*IE*/width : 600px;height : 450px;" width="400" loop></video>
 	<canvas height="300" id="<%= ruleNamespace %>overlay" style="position: absolute;top: 0px;left: 0px;-o-transform : scaleX(-1);-webkit-transform : scaleX(-1);transform : scaleX(-1);-ms-filter : fliph; /*IE*/filter : fliph; /*IE*/width : 600px;height : 450px;" width="400"></canvas>
+	<div class="emotion-text" style="text-align:center; position:absolute; bottom:-15px; left:0px; width:100%; z-index:65534; background-color:black; color:white; font-weight: bold;">
+		---
+	</div>
 </div>
 
-<script>
+<script data-senna-track="permanent">
 	$(document).keypress("k",function(e) {
-		if(e.ctrlKey && e.shiftKey)
+		if (e.ctrlKey && e.shiftKey) {
 			$('#<%= ruleNamespace %>videoContainer').toggleClass('hidden');
+		}
 	});
 </script>
 
@@ -128,6 +132,10 @@ String clmtrackrSrc = HtmlUtil.escape(
 
 	<%= ruleNamespace %>checkMood = function(currentState) {
 		var moodThresholds = <%= ruleNamespace %>getMoodThresholds();
+
+		if (currentState.value >= 0.5) {
+			$('div.emotion-text').text(currentState.emotion.toUpperCase());
+		}
 
 		for (var k in moodThresholds) {
 			var moodThreshold = moodThresholds[k];

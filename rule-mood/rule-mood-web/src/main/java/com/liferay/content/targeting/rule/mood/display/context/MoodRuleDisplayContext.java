@@ -52,7 +52,7 @@ public class MoodRuleDisplayContext extends BaseRuleDisplayContext {
 		return _moodThreshold;
 	}
 
-	public double getMoodTtl() {
+	public int getMoodTtl() {
 		if (Validator.isNull(_moodTtl)) {
 			_moodTtl = GetterUtil.getInteger(context.get("moodTtl"));
 		}
